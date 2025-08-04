@@ -65,10 +65,13 @@ try:
         print("\nError handled gracefully:", e)
         conn.rollback()
 
-    # Close connection
-    cur.close()
-    conn.close()
-    print("\nConnection closed.")
-
 except Exception as e:
-    print("Error:", e)
+    print("\nMain Error:", e)
+
+finally:
+    # Ensure resources are closed properly
+    if 'cur' in locals() and cur:
+        cur.close()
+    if 'conn' in locals() and conn:
+        conn.close()
+    print("\nConnection closed.")
